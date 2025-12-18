@@ -1,16 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: readme-generator-service
-  labels:
-    app: readme-generator
+  name: github-readme-generator-service
 spec:
-  type: LoadBalancer
   selector:
-    app: readme-generator
+    app: github-readme-generator
+  type: NodePort
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 80
-    name: http
-  sessionAffinity: None
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30007  # You can access your app at http://<VM_IP>:30007
