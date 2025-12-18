@@ -10,7 +10,20 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                     
+            }
+        }
+        stage('clean workshope') {
+            steps {
+                cleanWs()
+                     
+            }
+        }
+        
+
+        stage('Checkout from Git') {
+            steps {
+                git branch:'main', url:'https://github.com/Sandeepa-git/github-readme-generator.git'
             }
         }
         
