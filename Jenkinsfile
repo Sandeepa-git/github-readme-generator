@@ -48,12 +48,15 @@ pipeline {
                     try {
                         withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_AUTH_TOKEN')]) {
                             sh '''
-                                docker run --rm \
-                                    -e SONAR_HOST_URL=${SONAR_HOST_URL} \
-                                    -e SONAR_LOGIN=${SONAR_AUTH_TOKEN} \
-                                    -v $PWD:/usr/src \
-                                    sonarsource/sonar-scanner-cli
-                            '''
+                                npm install -g @sonar/scan
+
+                                    sonar \
+                                      -Dsonar.host.url=http://16.171.11.129:9000 \
+                                      -Dsonar.token=$SONAR_TOKEN \
+                                      -Dsonar.projectKey=Practice_Sandeepa \
+                                      -Dsonar.sources=src \
+                                      -Dsonar.exclusions=**/node_modules/**,**/build/**
+                                '''
                         }
                     } catch (err) {
                         echo "SonarQube stage failed: ${err}. Continuing pipeline..."
