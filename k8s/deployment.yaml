@@ -2,10 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: github-readme-generator
-  labels:
-    app: github-readme-generator
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: github-readme-generator
@@ -15,17 +13,7 @@ spec:
         app: github-readme-generator
     spec:
       containers:
-      - name: github-readme-generator
-        image: sandeepavimukthi/github-readme-generator:latest
-        ports:
-        - containerPort: 80
-        resources:
-          limits:
-            cpu: "500m"
-            memory: "512Mi"
-          requests:
-            cpu: "250m"
-            memory: "256Mi"
-        securityContext:
-          runAsUser: 1000
-          allowPrivilegeEscalation: false
+        - name: github-readme-generator
+          image: sandeepavimukthi/github-readme-generator:latest
+          ports:
+            - containerPort: 80
